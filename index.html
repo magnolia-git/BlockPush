@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Block Push</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="block.js"></script>
+	</head>
+
+	<body>
+
+		<div style="text-align: center">
+			<audio loop id="bgm">
+				<source src="blockPush.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="win">
+				<source src="blockWinA.mp3" type="audio/mpeg">
+			</audio>
+			<img class="hidden" src="Ground.png" alt="Walkable" id="0"></img>
+			<img class="hidden" src="Wall.png" alt="Wall" id="1"></img>
+			<img class="hidden" src="Button.png" alt="Button" id="2"></img>
+			<img class="hidden" src="Block.png" alt="Block" id="4"></img>
+			<img class="hidden" src="Blocky2.png" alt="Player" id="8"></img>
+			<p>Use the arrow keys to move the blocks on to the switches. <a href="format.html">Level data information</a> can be found here.</p>
+			<input type="file" id="file-level" onchange="loadLevel(this)">
+			<button id="undo-button" onclick="undo()">Undo</button>
+			<p>Level Name: <span id="level-name">---</span></p>
+			<p>Author: <span id="level-author">---</span></p>
+			<div id="canvas-container">
+				<canvas id="my-canvas" width="0" height="0"></canvas>
+			</div>
+			<p>Example levels you can download:</p>
+			<a href="01.txt">01.txt</a>
+			<a href="02.txt">02.txt</a>
+			<a href="03.txt">03.txt</a>
+			<a href="BB001.txt">BB001.txt</a>
+			<a href="BB040.txt">BB040.txt</a>
+		</div>
+
+	</body>
+
+</html>

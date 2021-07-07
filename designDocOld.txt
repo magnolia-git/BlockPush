@@ -1,0 +1,131 @@
+Initial design documentation for the block pushing game. Some things here are different than what is being presented and can be considered out-of-date.
+
+Block Pushing Game
+
+What: A game where you push blocks on to switches in various layouts
+
+Why: Will be good experience with managing states. Also Fun.
+
+Controls: Movement in 4 directions (up, down, left, right). Blocks can be pushed and cannot be pulled. Only walkable spaces, buttons and ladders can be traversed. Rewinding will let
+		  players backtrack in case they get stuck, or they can reset the current game to start over.
+		  
+Setting up: The levels are represented by .txt files.
+
+	Values:
+	
+	0 - Walkable block.
+	1 - Wall block. Impassable.
+	2 - Button block. Push block block on all button blocks to win.
+	4 - Block block. Pushable block.
+	8 - Player block. Represents their starting position.
+	16- Ladder block. Lets player block pass over wall blocks. May or may not be implemented immediately.
+
+	Example:
+	
+	7,7 // X Y. The size of the layout: 7 blocks wide, 7 blocks tall
+	
+	0,0,0,0,0,0,0,
+	0,1,1,1,1,1,0,
+	0,1,2,4,0,1,0,
+	0,1,0,8,0,1,0,
+	0,1,0,0,0,1,0,
+	0,1,1,1,1,1,0,
+	0,0,0,0,0,0,0   // The layout of this level. See testlayout.png.
+	
+	In a file, it would look more like this:
+	
+	Level Name
+	Author
+	7,7
+	0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,2,4,0,1,0,0,1,0,8,0,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0
+	
+Drawing the initial screen:
+
+	A for-each loop is utilized to go through the level array. Keeping the size of the layout in mind, it can correctly build each block of the level based on the values being read.
+	Each block will be an object that is aware of its x and y position as well as if they can be moved and be walked through.
+	
+	block {
+		type:0
+		x:0,
+		y:0,
+		movable:false,
+		passable: true // This is the ground block and can be walked on! type is used for what to draw.
+		
+	}
+	
+Updating the screen:
+
+	The game will be checking each frame for any input from the player. When input is received, the array is updated to reflect the intended change:
+	
+		-disable player input (how?)
+		-update the array
+		-move the moving objects 1 pixel in the given direction each frame until they are in the correct location
+		-enable player input
+		
+Disabling input:
+	
+	The method that waits for input will be structured like so:
+	
+		-has player pressed a button?
+			-no: do nothing, or update screen
+			-yes: call method to move player with the direction given
+		-repeat
+		
+Moving objects:
+
+	All objects on the player's n,e,s,w directions should be accounted for when moving things. remember: only the player can move objects. movable blocks cannot move other movable blocks
+	
+	the source of movement is always from the player. pushing objects should be like a chain reaction
+			
+		-object is issued a move command
+		-object checks what is giving a move command
+		-if the player object is being given the command, then
+			-object attempts to move in given direction
+			-if nothing is in the way, then the object will move // EXIT POINT
+			-else if there is an immovable object, then the object will not move // EXIT POINT
+			-else if there is a movable object, then go to line 78
+		-else if a movable object is being given the command by the player object, then
+			-object attempts to move in given direction
+			-if nothing is in the way, then the object and player will move // EXIT POINT
+			-else if there is an immovable object, then the object and player will not move // EXIT POINT
+			-else if there is a movable object, then the object and player will not move // EXIT POINT
+			
+Winning:
+
+	All blocks need to be on all buttons in order to win.
+	
+Putting it all together:
+
+	-Reads level file
+	-draws playfield
+	
+	//main loop//
+	-is there input?
+		-yes: move
+		-no: --
+	-are all buttons pressed?
+		-yes: you win, everything stops
+		-no: --
+	-update screen
+	//main loop//
+	
+Phase 1: Drawing levels
+
+	Focus on getting different txt files to display properly.
+	
+	Graphics will need to be initially drawn in a specific order:
+	
+	0,0,0,0		1,1,1,1		1,1,1,1		1,1,1,1		1,1,1,1
+	0,0,0,0		1,0,0,1		1,2,0,1		1,2,4,1		1,2,4,1
+	0,0,0,0 -->	1,0,0,1 -->	1,0,0,1 -->	1,0,0,1 -->	1,8,0,1
+	0,0,0,0		1,1,1,1		1,1,1,1		1,1,1,1		1,1,1,1
+
+	1,1,1,1
+	1,A,4,1
+	1,0,0,1
+	1,1,1,1
+	
+	F,F,F,F	
+	F,F,F,F	
+	F,F,F,F	
+	F,F,F,F	

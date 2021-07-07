@@ -1,0 +1,42 @@
+#my-canvas {
+  border-radius: 10px;
+}
+
+div {
+  margin: auto;
+}
+
+.hidden {
+  position: absolute;
+  left:     -10000px;
+  top:      auto;
+  width:    1px;
+  height:   1px;
+  overflow: hidden;
+}
+
+body {
+  background-color: black;
+  color: white;
+}
+
+li {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+img {
+  padding: 3px;
+}
+
+#list {
+  display:inline-flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  background-color: #333333;
+  border-radius: 50%;
+}

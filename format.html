@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Level Construction and Examples</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+
+	<body>
+    <h1>Data Format</h1>
+    <h2>What makes a level?</h2>
+    <p>A level can be made up of several different kinds of blocks:</p>
+    <div>
+      <div id="list"><img src="Ground.png" alt="Ground"></img>Walk Block (0)</div>
+      <div id="list"><img src="Wall.png" alt="Wall"></img> Wall Block (1)</div>
+      <div id="list"><img src="Button.png" alt="Button"></img> Button Block (2)</div>
+      <div id="list"><img src="Block.png" alt="Block"></img> Push Block (4)</div>
+      <div id="list"><img src="Blocky2.png" alt="Player"></img> Player Block (8)</div>
+    </div>
+		<h2>What do levels look like?</h2>
+		<p>Levels are stored in regular .txt files.</p>
+		<div>
+			<code>
+				Level Name<br>
+				Level Author<br>
+				7,7 //Level Size (width, height)<br>
+				0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,2,4,0,1,0,0,1,0,0,0,1,0,0,1,0,0,8,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0<br>
+			</code>
+			<img src="data2img.png" alt="Data to Image"></img>
+		</div>
+		<a href="./">Go back.</a>
+
+	</body>
+
+</html>
